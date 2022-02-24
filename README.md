@@ -2,4 +2,4 @@
 
 create containers using Docker-compose
 
-docker-compose -d --build
+docker-compose up --build
