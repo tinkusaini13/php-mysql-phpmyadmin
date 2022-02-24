@@ -1,0 +1,33 @@
+version: "3"
+services:
+  web:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    container_name: first-con
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - 7861:80
+  mysql:
+    container_name: db
+    image: mysql:8.0
+#    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: sample_db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    ports:
+      - 7862:3306
+  phpmyadmin:
+    container_name: phpmyadmin-con
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - 7863:80
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    volumes:
+      - /sessions
